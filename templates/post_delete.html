@@ -3,8 +3,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% if user.is_authenticated and user == post.author %}
     <form action="" method="post">{% csrf_token %}
         <p>Are you sure you want to delete "{{ post.title }}"?</p>
         <input type="submit" value="Confirm">
     </form>
+{% else %}
+    <h4><a href="{% url 'home' %}">Home</a></h4>
+{% endif %}
 {% endblock content %}
