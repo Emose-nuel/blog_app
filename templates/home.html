@@ -2,16 +2,36 @@
 
 {% extends 'base.html' %}
 
+{% block title %}Post{% endblock title %}
 
 
 {% block content %}
-
-    {% for post in all_posts_list %}
-        <div class='post-entry'>
-            <h2> <a href="{% url 'post_detail' post.pk %}">{{ post.title }} </a></h2>
-            <p>{{ post.body }} </p>
-            <h5>Author: {{ post.author }}</h5>
-        </div>
-    {% endfor %}
     
+    {% for post in all_posts_list %}
+    <br/>
+    <div class="jumbotron text-center">
+      <h1 class="display-7">Welcome to Zuri Blog...</h1>
+    </div> 
+        <div class='card'>
+            <div class="card-header">
+                <span class="font-weight-bold"><a href="{% url 'post_detail' post.pk %}">
+                    {{ post.title }}</a></span> &middot;
+                <span class="text-muted">by {{ post.author }} |
+                {{ post.date }}</span>
+            </div>
+            <div class="card-body">
+                {{ post.body }}
+            </div>
+            <a href="{% url 'post_detail' pk=post.pk %}">Comments: {{ post.comments.count }}</a>
+            {% if user.is_authenticated and user == post.author %}
+            <div class="card-footer text-center text-muted">
+                <a href="{% url 'post_edit' post.pk %}">Edit</a> | 
+                <a href="{% url 'post_delete' post.pk %}">Delete</a>
+            </div>
+            {% endif %}
+            
+        </div>
+        <br />
+    {% endfor %}
+
 {% endblock content %} 

@@ -1,19 +1,28 @@
 <!-- templates/login.html -->
 
 {% extends 'base.html' %}
-
+{% block title %}Log In{% endblock title %}
 
     {% block content %}
         {% if user.is_authenticated %}
-            <p>You are already Logged in</p>
-            <h4><a href="{% url 'home' %}">Home</a></h4>
+            <h4>You are already Logged in!</h4>
+            
+            <h7><a href="{% url 'home' %}"><button 
+                class="btn btn-success ml-2" type="button">Home</button></a>
+            </h7>
 
         {% else %}
+        <h3>Log In</h3>
         <form method='post'>
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Log In</button>
+            <button class="btn btn-success ml-2" type="submit">Log In</button> 
+            <a href="{% url 'password_reset' %}"><button 
+                class="btn btn-outline-secondary" type="button">Reset Password</button></a>
+            <a href="{% url 'signup' %}"><button class="btn btn-outline-secondary"
+                type="button">SignUp</button></a>           
         </form>
+        
         {% endif %}
     {% endblock content %}
 

@@ -3,16 +3,11 @@
 {% extends 'base.html' %}
 
     {% block content %}
-    {% if user.is_authenticated and user == post.author %}
-
-        <form action="" method="post">{% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Update">
-        </form>
-
-    {% else %}    
-    <a href="{% url 'login' %}">Log In</a>
-    {% endif %}
+            <h3>Edit</h3>
+            <form action="" method="post">{% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-info ml-2" type="submit">Update</button>
+            </form>
 
     {% endblock content %}
 
